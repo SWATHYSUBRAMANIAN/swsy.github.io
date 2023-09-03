@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Love Link</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff6b6b, #ffcccb, #ffb8b8);
+            background-size: 400% 400%;
+            animation: gradientBG 10s linear infinite;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #ff6b6b;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+        button:hover {
+            background-color: #ff3c3c;
+        }
+        #quote {
+            font-size: 24px;
+            margin-top: 20px;
+            color: #fff;
+        }
+        #quote-black {
+            font-size: 48px;
+            color: #000;
+            margin-top: 20px;
+        }
+        #clickCount {
+            font-size: 36px;
+            color: #ff6b6b;
+            margin-top: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: #fff; font-size: 36px; margin-top: 50px;">🌸🌈💖ZII!💖🌈🌸</h1>
+    <button id="loveYouButton">🥺 CLICK HERE TO DONATE A KISS 👉👈</button>
+    <p id="quote"></p>
+    <p id="quote-black"></p>
+    <div id="clickCount">Click Count: 0</div>
+
+    <script>
+        const loveYouButton = document.getElementById('loveYouButton');
+        const quoteElement = document.getElementById('quote');
+        const quoteBlackElement = document.getElementById('quote-black');
+        const clickCountElement = document.getElementById('clickCount');
+        let languageIndex = 0;
+        let clickCount = 0;
+
+       const lovePhrases = [
+            "I LOVE YOU 💋",             // English
+            "मैं तुम्हें पसंद करता हूँ 💋", // Hindi
+            "أنا أحبك 💋",               // Arabic
+            "میں تم سے پیار کرتا ہوں 💋",  // Urdu
+            "நான் உன்னை காதலிக்கிறேன் 💋", // Tamil
+            "Je t'aime 💋",              // French
+            "Ich liebe dich 💋",         // German
+            "Ti amo 💋",                 // Italian
+            "Te amo 💋",                 // Spanish
+            "Eu te amo 💋",              // Portuguese
+            "愛してる 💋",                  // Japanese
+            "사랑해요 💋",                  // Korean
+            "我爱你 💋",                   // Chinese
+            "Я тебя люблю 💋",            // Russian
+            "Aku cinta padamu 💋",        // Indonesian
+            "S'agapo 💋",                 // Greek
+            "Mwen renmen ou 💋",          // Haitian Creole
+            "Mahal kita 💋",              // Filipino
+            "Mina rakastan sinua 💋",     // Finnish
+            "Tôi yêu bạn 💋",             // Vietnamese
+            "Saya cinta padamu 💋",       // Malay
+            "Jeg elsker dig 💋",          // Danish
+            "Jag älskar dig 💋",          // Swedish
+            "Ik hou van jou 💋",          // Dutch
+            "Volim te 💋",                // Croatian
+            "Σ'αγαπώ 💋",                 // Greek
+            "Ағап ұнайды 💋",              // Kazakh
+            "હું તને પ્રેમ કરું છું 💋",  // Gujarati
+            "ನಾನು ನಿನ್ನನ್ನು ನೆನೆಸುತ್ತಿದ್ದೇನೆ 💋", // Kannada
+            "म तिमीलाई माया गर्दछु 💋",    // Nepali
+            "Σε αγαπώ 💋",               // Greek
+            "Ma armastan sind 💋",        // Estonian
+            "Kocham cię 💋",              // Polish
+            "ਮੈਂ ਤੁਹਾਨੂੰ ਪਿਆਰ ਕਰਦਾ ਹਾਂ 💋", // Punjabi
+            "Ich lieb' Dich 💋",          // Swiss German
+            "Ich lieb Dich 💋",           // Luxembourgish
+            "Ich lieb Di 💋",             // Alemannic German
+            "Me tula prem aahe 💋",       // Marathi
+            "Nanu ninna preetisuttene 💋", // Kannada
+            "Naan unnai kathalikaraen 💋", // Tamil
+            "నాకు మీరు నచ్చినట్లుంది 💋",   // Telugu
+            "ချစ်တယ်သင့်တော့ 💋",           // Burmese
+            "ننه نہ چه څه دى 💋",            // Pashto
+            "Ағап ұнайды 💋",                  // Kazakh
+            "હું તને પ્રેમ કરું છું 💋",       // Gujarati
+            "ನಾನು ನಿನ್ನನ್ನು ನೆನೆಸುತ್ತಿದ್ದೇನೆ 💋", // Kannada
+            "म तिमीलाई माया गर्दछु 💋",          // Nepali
+            "Σε αγαπώ 💋",                       // Greek
+            "Ma armastan sind 💋",                // Estonian
+            "Kocham cię 💋",                      // Polish
+            "ਮੈਂ ਤੁਹਾਨੂੰ ਪਿਆਰ ਕਰਦਾ ਹਾਂ 💋",      // Punjabi
+            "நான் உன்னை காதலிக்கிறேன் 💋",     // Tamil
+            "म तिमीलाई माया गर्दछु 💋",          // Nepali
+            "Ich lieb Di 💋",                    // Alemannic German
+            "Те волим 💋",                        // Serbian
+            "Mən səni sevirəm 💋",                // Azerbaijani
+        ];
+
+        function displayRandomLovePhrase() {
+            const randomIndex = Math.floor(Math.random() * lovePhrases.length);
+            quoteElement.textContent = "I LOVE YOU";
+            quoteBlackElement.textContent = lovePhrases[randomIndex];
+        }
+
+        function changeLanguage() {
+            displayRandomLovePhrase();
+        }
+
+        if ("vibrate" in navigator) {
+            loveYouButton.addEventListener('click', () => {
+                navigator.vibrate(1000);
+                changeLanguage();
+                updateClickCount();
+            });
+        } else {
+            loveYouButton.disabled = true;
+            loveYouButton.textContent = "Vibration not supported";
+        }
+
+        function updateClickCount() {
+            clickCount++;
+            clickCountElement.textContent = `<3 KISS(ES) DONATED: ${clickCount}`;
+        }
+
+        displayRandomLovePhrase();
+    </script>
+</body>
+</html>
